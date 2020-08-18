@@ -4,7 +4,7 @@
 // Nurikabe Solver by Stephan T. Lavavej
 // https://en.wikipedia.org/wiki/Nurikabe_(puzzle)
 
-// cl /EHsc /nologo /W4 /std:c++17 /MT /O2 /GL nurikabe.cpp && nurikabe && wikipedia_hard.html
+// clang++ -Os -std=c++17 -o nurikabe nurikabe.cpp && nurikabe && wikipedia_hard.html
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -1336,7 +1336,7 @@ bool Grid::unreachable(const int x_root, const int y_root, set<pair<int, int>> d
             }
         }
 
-        for_valid_neighbors(x_curr, y_curr, [&](const int x, const int y) {
+        for_valid_neighbors(x_curr, y_curr, [&, n_curr = n_curr](const int x, const int y) {
             if (cell(x, y) == UNKNOWN && discovered.insert(make_pair(x, y)).second) {
                 q.push(make_tuple(x, y, n_curr + 1));
             }
